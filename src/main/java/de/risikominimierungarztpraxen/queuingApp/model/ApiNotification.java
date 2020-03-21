@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
-public class AppointmentBaseNotifications   {
+public class ApiNotification   {
   /**
    * Gets or Sets type
    */
@@ -54,7 +54,7 @@ public class AppointmentBaseNotifications   {
   @JsonProperty("identifier")
   private String identifier = null;
 
-  public AppointmentBaseNotifications type(TypeEnum type) {
+  public ApiNotification type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -73,7 +73,7 @@ public class AppointmentBaseNotifications   {
     this.type = type;
   }
 
-  public AppointmentBaseNotifications identifier(String identifier) {
+  public ApiNotification identifier(String identifier) {
     this.identifier = identifier;
     return this;
   }
@@ -101,7 +101,7 @@ public class AppointmentBaseNotifications   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AppointmentBaseNotifications appointmentBaseNotifications = (AppointmentBaseNotifications) o;
+    ApiNotification appointmentBaseNotifications = (ApiNotification) o;
     return Objects.equals(this.type, appointmentBaseNotifications.type) &&
         Objects.equals(this.identifier, appointmentBaseNotifications.identifier);
   }

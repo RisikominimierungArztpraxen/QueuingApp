@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -15,7 +16,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "an appointment")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
-public class AppointmentBase {
+public class ApiAppointmentBase {
     @JsonProperty("time")
     private String time = null;
 
@@ -25,7 +26,14 @@ public class AppointmentBase {
     @JsonProperty("estimatedInMinutes")
     private Integer estimatedInMinutes = 15;
 
-    public AppointmentBase time(String time) {
+    @JsonCreator
+    public ApiAppointmentBase(@JsonProperty("time") String time, @JsonProperty("patientId") String patientId, @JsonProperty("estimatedInMinutes") Integer estimatedInMinutes) {
+        this.time = time;
+        this.patientId = patientId;
+        this.estimatedInMinutes = estimatedInMinutes;
+    }
+
+    public ApiAppointmentBase time(String time) {
         this.time = time;
         return this;
     }
@@ -44,7 +52,7 @@ public class AppointmentBase {
         this.time = time;
     }
 
-    public AppointmentBase patientId(String patientId) {
+    public ApiAppointmentBase patientId(String patientId) {
         this.patientId = patientId;
         return this;
     }
@@ -63,7 +71,7 @@ public class AppointmentBase {
         this.patientId = patientId;
     }
 
-    public AppointmentBase estimatedInMinutes(Integer estimatedInMinutes) {
+    public ApiAppointmentBase estimatedInMinutes(Integer estimatedInMinutes) {
         this.estimatedInMinutes = estimatedInMinutes;
         return this;
     }
@@ -90,7 +98,7 @@ public class AppointmentBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AppointmentBase appointmentBase = (AppointmentBase) o;
+        ApiAppointmentBase appointmentBase = (ApiAppointmentBase) o;
         return Objects.equals(this.time, appointmentBase.time) &&
                 Objects.equals(this.patientId, appointmentBase.patientId) &&
                 Objects.equals(this.estimatedInMinutes, appointmentBase.estimatedInMinutes);
