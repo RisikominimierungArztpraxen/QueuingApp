@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import de.risikominimierungarztpraxen.queuingApp.persistence.entities.AppointmentEntity;
+import de.risikominimierungarztpraxen.queuingApp.persistence.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.threeten.bp.LocalDate;
@@ -17,11 +19,13 @@ import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentCreator;
 public class QueueService {
 
     private final OfficeService officeService;
+    private final AppointmentRepository appointmentRepository;
     private final Map<String, Map<LocalDate, List<Appointment>>> queues = new HashMap<>();
 
     @Autowired
-    public QueueService(OfficeService officeService) {
+    public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository) {
         this.officeService = officeService;
+        this.appointmentRepository = appointmentRepository;
     }
 
     public void deleteAppointment(String officeId, String patientId, LocalDate day) {
@@ -47,6 +51,8 @@ public class QueueService {
 
     public ApiAppointment createAppointMent(String officeId, LocalDate day, ApiAppointmentCreator appointmentCreator) {
         checkOfficeId(officeId);
+        AppointmentEntity appointmentEntity = mapToDBEntity(appointmentCreator);
+        appointmentRepository.save(appointmentEntity);
         return null;
     }
 
@@ -72,5 +78,10 @@ public class QueueService {
         if (officeService.findOffice(officeId) == null) {
             throw new IllegalArgumentException("officeId " + officeId + " not found. Please create the office first.");
         }
+    }
+
+    private AppointmentEntity mapToDBEntity(ApiAppointmentCreator appointment) {
+        AppointmentEntity appointmentEntity = new AppointmentEntity();
+        return appointmentEntity;
     }
 }
