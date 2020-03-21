@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.threeten.bp.LocalDate;
 
 import de.risikominimierungarztpraxen.queuingApp.model.Appointment;
-import de.risikominimierungarztpraxen.queuingApp.model.AppointmentBase;
 import de.risikominimierungarztpraxen.queuingApp.model.AppointmentChange;
+import de.risikominimierungarztpraxen.queuingApp.model.AppointmentCreator;
 
 @Service
 public class QueueService {
@@ -28,7 +28,7 @@ public class QueueService {
         return null;
     }
 
-    public Appointment createAppointMent(String officeId, LocalDate day, AppointmentBase appointmentBase) {
+    public Appointment createAppointMent(String officeId, LocalDate day, AppointmentCreator appointmentCreator) {
         return null;
     }
 
@@ -36,7 +36,7 @@ public class QueueService {
         return null;
     }
 
-    public void replaceQueue(String officeId, LocalDate day, List<AppointmentBase> appointments) {
+    public void replaceQueue(String officeId, LocalDate day, List<AppointmentCreator> appointments) {
 
     }
 }
