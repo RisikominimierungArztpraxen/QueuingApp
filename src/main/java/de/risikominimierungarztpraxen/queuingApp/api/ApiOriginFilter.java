@@ -1,4 +1,4 @@
-package io.swagger.api;
+package de.risikominimierungarztpraxen.queuingApp.api;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package io.swagger.model;
+package de.risikominimierungarztpraxen.queuingApp.model;
 
 import java.util.ArrayList;
 import java.util.List;
