@@ -69,7 +69,7 @@ public class QueueService {
     }
 
     private void checkOfficeId(String officeId) {
-        if (!this.officeService.findOffice(officeId).isPresent()) {
+        if (officeService.findOffice(officeId) == null) {
             throw new IllegalArgumentException("officeId " + officeId + " not found. Please create the office first.");
         }
     }
