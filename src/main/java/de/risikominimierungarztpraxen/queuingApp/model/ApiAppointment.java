@@ -4,20 +4,33 @@ import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
-public class Appointment extends AppointmentBase {
+public class ApiAppointment extends ApiAppointmentBase {
     @JsonProperty("place")
-    private Integer place = null;
+    private Integer place;
 
     @JsonProperty("estimateWaitingMinutes")
-    private Integer estimateWaitingMinutes = null;
+    private Integer estimateWaitingMinutes;
 
-    public Appointment place(Integer place) {
+    @JsonCreator
+    public ApiAppointment(
+            @JsonProperty("time") String time,
+            @JsonProperty("patientId") String patientId,
+            @JsonProperty("estimatedInMinutes") Integer estimatedInMinutes,
+            @JsonProperty("place") Integer place,
+            @JsonProperty("estimateWaitingMinutes") Integer estimateWaitingMinutes) {
+        super(time, patientId, estimatedInMinutes);
+        this.place = place;
+        this.estimateWaitingMinutes = estimateWaitingMinutes;
+    }
+
+    public ApiAppointment place(Integer place) {
         this.place = place;
         return this;
     }
@@ -36,7 +49,7 @@ public class Appointment extends AppointmentBase {
         this.place = place;
     }
 
-    public Appointment estimateWaitingMinutes(Integer estimateWaitingMinutes) {
+    public ApiAppointment estimateWaitingMinutes(Integer estimateWaitingMinutes) {
         this.estimateWaitingMinutes = estimateWaitingMinutes;
         return this;
     }
@@ -63,7 +76,7 @@ public class Appointment extends AppointmentBase {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Appointment appointment = (Appointment) o;
+        ApiAppointment appointment = (ApiAppointment) o;
         return Objects.equals(this.place, appointment.place) &&
                 Objects.equals(this.estimateWaitingMinutes, appointment.estimateWaitingMinutes) &&
                 super.equals(o);

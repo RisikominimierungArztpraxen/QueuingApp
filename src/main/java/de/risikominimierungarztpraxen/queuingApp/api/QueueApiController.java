@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.threeten.bp.LocalDate;
 
-import de.risikominimierungarztpraxen.queuingApp.model.Appointment;
-import de.risikominimierungarztpraxen.queuingApp.model.AppointmentChange;
-import de.risikominimierungarztpraxen.queuingApp.model.AppointmentCreator;
+import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointment;
+import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentChange;
+import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentCreator;
 import de.risikominimierungarztpraxen.queuingApp.service.QueueService;
 import io.swagger.annotations.ApiParam;
 
@@ -41,7 +41,7 @@ public class QueueApiController implements QueueApi {
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdGet(
+    public ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdGet(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
             @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
@@ -54,11 +54,11 @@ public class QueueApiController implements QueueApi {
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdPut(
+    public ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdPut(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
             @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
-            @ApiParam(value = "") @Valid @RequestBody AppointmentChange body) {
+            @ApiParam(value = "") @Valid @RequestBody ApiAppointmentChange body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             return new ResponseEntity<>(queueService.updateAppointment(officeId, day, patientId, body), HttpStatus.OK);
@@ -68,10 +68,10 @@ public class QueueApiController implements QueueApi {
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPost(
+    public ResponseEntity<ApiAppointment> queueOfficeIdDayPost(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
-            @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentCreator body) {
+            @ApiParam(value = "the new patient") @Valid @RequestBody ApiAppointmentCreator body) {
         String accept = request.getHeader("Accept");
 
         if (accept != null && accept.contains("application/json")) {
@@ -85,7 +85,7 @@ public class QueueApiController implements QueueApi {
     public ResponseEntity<Void> queueOfficeIdDayPut(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
-            @ApiParam(value = "the new patient") @Valid @RequestBody List<AppointmentCreator> body) {
+            @ApiParam(value = "the new patient") @Valid @RequestBody List<ApiAppointmentCreator> body) {
         queueService.replaceQueue(officeId, day, body);
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
