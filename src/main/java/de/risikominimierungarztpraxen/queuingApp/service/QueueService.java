@@ -7,17 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import de.risikominimierungarztpraxen.queuingApp.persistence.entities.AppointmentEntity;
-import de.risikominimierungarztpraxen.queuingApp.persistence.repository.AppointmentRepository;
-import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointment;
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentChange;
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentCreator;
-import org.threeten.bp.ZonedDateTime;
+import de.risikominimierungarztpraxen.queuingApp.persistence.entities.AppointmentEntity;
+import de.risikominimierungarztpraxen.queuingApp.persistence.repository.AppointmentRepository;
+import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 
 @Service
 public class QueueService {
@@ -25,7 +23,7 @@ public class QueueService {
     private final OfficeService officeService;
     private final AppointmentRepository appointmentRepository;
     private final DoctorsOfficeRepository officeRepository;
-    private final Map<String, Map<LocalDate, List<Appointment>>> queues = new HashMap<>();
+    private final Map<String, Map<LocalDate, Queue>> queues = new HashMap<>();
 
     @Autowired
     public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository, DoctorsOfficeRepository officeRepository) {
@@ -37,47 +35,75 @@ public class QueueService {
     public void deleteAppointment(String officeId, String patientId, LocalDate day) {
         checkOfficeId(officeId);
         findQueue(officeId, day).ifPresent(queue -> {
-            queue.removeIf(appointment -> appointment.getPatientId().equals(patientId));
+            queue.removeAppointment(patientId);
         });
     }
 
     public ApiAppointment getAppointment(String officeId, String patientId, LocalDate day) {
         checkOfficeId(officeId);
-        List<Appointment> queue = findQueue(officeId, day)
+        Queue queue = findQueue(officeId, day)
                 .orElseThrow(() -> new IllegalArgumentException("There was no queue for the given day or office found!"));
-        int place = 0;
-        for (Appointment appointment : queue) {
-            if (appointment.getPatientId().equals(patientId)) {
-                return appointment.toAppointment(place);
-            }
-            place++;
-        }
-        throw new IllegalArgumentException("No appointment for given user found!");
+        return queue.findAppointment(patientId).orElseThrow(() -> new IllegalArgumentException("No appointment for given user found!"));
     }
 
     public ApiAppointment createAppointMent(String officeId, LocalDate day, ApiAppointmentCreator appointmentCreator) {
         checkOfficeId(officeId);
+        Queue queue = findOrCreateQueue(officeId, day);
+        ApiAppointment appointment = queue.addAppointment(appointmentCreator);
         AppointmentEntity appointmentEntity = mapToDBEntity(officeId, day, appointmentCreator);
         appointmentRepository.save(appointmentEntity);
-        return null;
+        return appointment;
+    }
+
+    public void removeOneMinuteFromAllAppointments() {
+        this.queues.forEach((officeId, officeQueue) -> {
+            officeQueue.forEach((day, queue) -> {
+                queue.removeOneMinuteFromAllAppointments();
+                this.refreshQueueEstimationInDb(queue);
+            });
+        });
+    }
+
+    private void refreshQueueEstimationInDb(Queue queue) {
+
     }
 
     public ApiAppointment updateAppointment(String officeId, LocalDate day, String patientId, ApiAppointmentChange appointmentChange) {
         checkOfficeId(officeId);
-        return null;
+        Queue queue = findQueue(officeId, day)
+                .orElseThrow(() -> new IllegalArgumentException("There was no queue for the given day or office found!"));
+        return queue.updateAppointment(patientId, appointmentChange);
     }
 
     public void replaceQueue(String officeId, LocalDate day, List<ApiAppointmentCreator> appointments) {
         checkOfficeId(officeId);
-
+        Queue queue = findOrCreateQueue(officeId, day);
+        queue.clear();
+        appointments.forEach(appointment -> {
+            queue.addAppointment(appointment);
+        });
     }
 
-    private Optional<List<Appointment>> findQueue(String officeId, LocalDate day) {
-        Map<LocalDate, List<Appointment>> officeQueues = this.queues.get(officeId);
-        if (queues == null) {
+    private Optional<Queue> findQueue(String officeId, LocalDate day) {
+        Map<LocalDate, Queue> officeQueues = this.queues.get(officeId);
+        if (officeQueues == null) {
             return Optional.empty();
         }
         return Optional.ofNullable(officeQueues.get(day));
+    }
+
+    private Queue findOrCreateQueue(String officeId, LocalDate day) {
+        Map<LocalDate, Queue> officeQueues = queues.get(officeId);
+        if (officeQueues == null) {
+            officeQueues = new HashMap<>();
+            queues.put(officeId, officeQueues);
+        }
+        Queue queue = officeQueues.get(day);
+        if (queue == null) {
+            queue = new Queue();
+            officeQueues.put(day, queue);
+        }
+        return queue;
     }
 
     private void checkOfficeId(String officeId) {

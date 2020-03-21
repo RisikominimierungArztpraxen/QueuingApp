@@ -22,6 +22,10 @@ public class Appointment extends ApiAppointmentBase {
         this.estimatedWaitingTime = estimatedWaitingTime;
     }
 
+    public int getEstimatedWaitingTime() {
+        return estimatedWaitingTime;
+    }
+
     public List<ApiNotification> getNotifications() {
         return notifications;
     }

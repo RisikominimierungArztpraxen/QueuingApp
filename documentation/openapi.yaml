@@ -83,7 +83,7 @@ paths:
           description: the new patient
           required: false
           schema:
-            $ref: '#/definitions/AppointmentCreator'
+            $ref: '#/definitions/ApiAppointmentCreator'
         - name: day
           in: path
           description: day
@@ -99,7 +99,7 @@ paths:
         '200':
           description: success
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/ApiAppointment'
         '201':
           description: Created
         '401':
@@ -127,7 +127,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/AppointmentCreator'
+              $ref: '#/definitions/ApiAppointmentCreator'
         - name: day
           in: path
           description: day
@@ -175,13 +175,12 @@ paths:
           in: path
           description: patientId
           required: true
-          type: integer
-          format: int32
+          type: string
       responses:
         '200':
           description: success
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/ApiAppointment'
         '401':
           description: Unauthorized
         '403':
@@ -204,7 +203,7 @@ paths:
           description: body
           required: false
           schema:
-            $ref: '#/definitions/AppointmentChange'
+            $ref: '#/definitions/ApiAppointmentChange'
         - name: day
           in: path
           description: day
@@ -220,13 +219,12 @@ paths:
           in: path
           description: patientId
           required: true
-          type: integer
-          format: int32
+          type: string
       responses:
         '200':
           description: success
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/ApiAppointment'
         '201':
           description: Created
         '401':
@@ -259,13 +257,12 @@ paths:
           in: path
           description: patientId
           required: true
-          type: integer
-          format: int32
+          type: string
       responses:
         '200':
           description: success
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/ApiAppointment'
         '204':
           description: No Content
         '401':
@@ -274,7 +271,7 @@ paths:
           description: Forbidden
       deprecated: false
 definitions:
-  Appointment:
+  ApiAppointment:
     type: object
     properties:
       estimateWaitingMinutes:
@@ -290,9 +287,34 @@ definitions:
         format: int32
       time:
         type: string
-    title: Appointment
+    title: ApiAppointment
     description: an appointment
-  AppointmentBaseNotifications:
+  ApiAppointmentChange:
+    type: object
+    properties:
+      notifications:
+        type: array
+        items:
+          $ref: '#/definitions/ApiNotification'
+    title: ApiAppointmentChange
+    description: change an appointment
+  ApiAppointmentCreator:
+    type: object
+    properties:
+      estimatedInMinutes:
+        type: integer
+        format: int32
+      notifications:
+        type: array
+        items:
+          $ref: '#/definitions/ApiNotification'
+      patientId:
+        type: string
+      time:
+        type: string
+    title: ApiAppointmentCreator
+    description: an appointment
+  ApiNotification:
     type: object
     properties:
       identifier:
@@ -304,32 +326,7 @@ definitions:
           - app
           - sms
           - beeper
-    title: AppointmentBaseNotifications
-  AppointmentChange:
-    type: object
-    properties:
-      notifications:
-        type: array
-        items:
-          type: string
-    title: AppointmentChange
-    description: change an appointment
-  AppointmentCreator:
-    type: object
-    properties:
-      estimatedInMinutes:
-        type: integer
-        format: int32
-      notifications:
-        type: array
-        items:
-          $ref: '#/definitions/AppointmentBaseNotifications'
-      patientId:
-        type: string
-      time:
-        type: string
-    title: AppointmentCreator
-    description: an appointment
+    title: ApiNotification
   Office:
     type: object
     properties:

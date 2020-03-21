@@ -1,27 +1,22 @@
 package de.risikominimierungarztpraxen.queuingApp.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import de.risikominimierungarztpraxen.queuingApp.persistence.entities.DoctorsOffice;
-import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 import org.springframework.stereotype.Service;
 
 import de.risikominimierungarztpraxen.queuingApp.model.Office;
+import de.risikominimierungarztpraxen.queuingApp.persistence.entities.DoctorsOffice;
+import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 
 @Service
 public class OfficeService {
 
     private final DoctorsOfficeRepository doctorsOfficeRepository;
-    private final List<Office> offices = new ArrayList<>();
 
     public OfficeService(DoctorsOfficeRepository doctorsOfficeRepository) {
         this.doctorsOfficeRepository = doctorsOfficeRepository;
     }
 
     public void deleteOffice(String officeId) {
-        this.offices.removeIf(office -> office.getId().equals(officeId));
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public Office createOffice(Office office) {
