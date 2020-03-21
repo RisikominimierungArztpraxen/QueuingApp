@@ -42,7 +42,7 @@ paths:
         '200':  
           description: success
     
-  /queue/{officeId}:
+  /queue/{officeId}/{day}:
     post:
       tags: [queue]
       parameters:
@@ -50,6 +50,12 @@ paths:
           name: officeId
           schema:
             type: string
+          required: true
+        - in: path
+          name: day
+          schema:
+            type: string
+            format: date
           required: true
       requestBody:
         description: the new patient
@@ -69,6 +75,12 @@ paths:
           schema:
             type: string
           required: true
+        - in: path
+          name: day
+          schema:
+            type: string
+            format: date
+          required: true
       requestBody:
         description: the new patient
         content:
@@ -80,7 +92,7 @@ paths:
       responses:
         '200':
           description: success
-  /queue/{officeId}/{patientId}:
+  /queue/{officeId}/{day}/{patientId}:
     get:
       tags: [queue]
       parameters: 
@@ -93,6 +105,12 @@ paths:
           name: patientId
           schema:
             type: integer
+          required: true
+        - in: path
+          name: day
+          schema:
+            type: string
+            format: date
           required: true
       responses:
         '200':
@@ -113,6 +131,12 @@ paths:
           name: patientId
           schema:
             type: integer
+          required: true
+        - in: path
+          name: day
+          schema:
+            type: string
+            format: date
           required: true
       requestBody:
         content:
@@ -138,6 +162,12 @@ paths:
           name: patientId
           schema:
             type: integer
+          required: true
+        - in: path
+          name: day
+          schema:
+            type: string
+            format: date
           required: true
       responses:
         '200':
