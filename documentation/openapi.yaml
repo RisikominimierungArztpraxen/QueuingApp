@@ -1,226 +1,339 @@
-openapi: 3.0.0
+swagger: '2.0'
 info:
+  description: Service for patient queue management
   version: 1.0.0
   title: QueueService
-  description: Service for patient queue management
-  contact:
-    name: TODO
+  contact: {}
+host: 'localhost:8080'
+basePath: /
 tags:
   - name: office
-    description: manage medical offices
+    description: the office API
   - name: queue
-    description: managing the queue
-servers:
-  - url: /api
+    description: the queue API
 paths:
   /office:
     post:
-      tags: [office]
-      requestBody:
-        description: new medical office
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Office'
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Office'
-  /office/{officeId}:
-    delete:
-      tags: [office]
-      parameters: 
-        - in: path
-          name: officeId
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':  
-          description: success
-    
-  /queue/{officeId}/{day}:
-    post:
-      tags: [queue]
+      tags:
+        - office
+      summary: officePost
+      operationId: officePost
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
-        - in: path
-          name: officeId
+        - in: body
+          name: body
+          description: new medical office
+          required: false
           schema:
-            type: string
-          required: true
-        - in: path
-          name: day
-          schema:
-            type: string
-            format: date
-          required: true
-      requestBody:
-        description: the new patient
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppointmentBase'
+            $ref: '#/definitions/Office'
       responses:
         '200':
           description: success
-    put:
-      tags: [queue]
-      description: replace the whole queue
-      parameters: 
-        - in: path
-          name: officeId
           schema:
-            type: string
-          required: true
-        - in: path
-          name: day
-          schema:
-            type: string
-            format: date
-          required: true
-      requestBody:
-        description: the new patient
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/AppointmentBase'
-      responses:
-        '200':
-          description: success
-  /queue/{officeId}/{day}/{patientId}:
-    get:
-      tags: [queue]
-      parameters: 
-        - in: path
-          name: officeId
-          schema:
-            type: string
-          required: true
-        - in: path
-          name: patientId
-          schema:
-            type: integer
-          required: true
-        - in: path
-          name: day
-          schema:
-            type: string
-            format: date
-          required: true
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Appointment'
-    put:
-      tags: [queue]
-      parameters: 
-        - in: path
-          name: officeId
-          schema:
-            type: string
-          required: true
-        - in: path
-          name: patientId
-          schema:
-            type: integer
-          required: true
-        - in: path
-          name: day
-          schema:
-            type: string
-            format: date
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppointmentChange'
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Appointment'
+            $ref: '#/definitions/Office'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/office/{officeId}':
     delete:
-      tags: [queue]
-      parameters: 
-        - in: path
-          name: officeId
-          schema:
-            type: string
+      tags:
+        - office
+      summary: officeOfficeIdDelete
+      operationId: officeOfficeIdDelete
+      produces:
+        - '*/*'
+      parameters:
+        - name: officeId
+          in: path
+          description: officeId
           required: true
-        - in: path
-          name: patientId
-          schema:
-            type: integer
-          required: true
-        - in: path
-          name: day
-          schema:
-            type: string
-            format: date
-          required: true
+          type: string
       responses:
         '200':
           description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Appointment'
-components:
-  schemas:
-    Office:
-      description: medical office
-      type: object
-      properties:
-        id:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false
+  '/queue/{officeId}/{day}':
+    post:
+      tags:
+        - queue
+      summary: queueOfficeIdDayPost
+      operationId: queueOfficeIdDayPost
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: the new patient
+          required: false
+          schema:
+            $ref: '#/definitions/AppointmentCreator'
+        - name: day
+          in: path
+          description: day
+          required: true
           type: string
-    Appointment:
-      allOf:
-        - $ref: '#/components/schemas/AppointmentBase'
-        - type: object
-          properties:
-            place:
-              type: integer
-            estimateWaitingMinutes:
-              type: integer
-    AppointmentBase:
-      description: an appointment
-      type: object
-      properties:
-        time: 
+          format: date
+        - name: officeId
+          in: path
+          description: officeId
+          required: true
           type: string
-          format: datetime
-        patientId:
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Appointment'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - queue
+      summary: queueOfficeIdDayPut
+      description: replace the whole queue
+      operationId: queueOfficeIdDayPut
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: body
+          description: the new patient
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AppointmentCreator'
+        - name: day
+          in: path
+          description: day
+          required: true
           type: string
-        notifications:
-          type: array
-          items:
-            type: object
-            properties:
-              type: 
-                type: string
-                enum: [app, sms, beeper]
-              identifier: 
-                description: appId when app, telefonnumber when sms, beeperId when beeper
-                type: string
-        estimatedInMinutes:
+          format: date
+        - name: officeId
+          in: path
+          description: officeId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: success
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  '/queue/{officeId}/{day}/{patientId}':
+    get:
+      tags:
+        - queue
+      summary: queueOfficeIdDayPatientIdGet
+      operationId: queueOfficeIdDayPatientIdGet
+      produces:
+        - application/json
+      parameters:
+        - name: day
+          in: path
+          description: day
+          required: true
+          type: string
+          format: date
+        - name: officeId
+          in: path
+          description: officeId
+          required: true
+          type: string
+        - name: patientId
+          in: path
+          description: patientId
+          required: true
           type: integer
-          default: 15
-    AppointmentChange:
-      description: change an appointment
-      type: object
-      properties:
-        notifications:
-          type: array
-          items:
-            type: string
+          format: int32
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Appointment'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - queue
+      summary: queueOfficeIdDayPatientIdPut
+      operationId: queueOfficeIdDayPatientIdPut
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: body
+          required: false
+          schema:
+            $ref: '#/definitions/AppointmentChange'
+        - name: day
+          in: path
+          description: day
+          required: true
+          type: string
+          format: date
+        - name: officeId
+          in: path
+          description: officeId
+          required: true
+          type: string
+        - name: patientId
+          in: path
+          description: patientId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Appointment'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - queue
+      summary: queueOfficeIdDayPatientIdDelete
+      operationId: queueOfficeIdDayPatientIdDelete
+      produces:
+        - application/json
+      parameters:
+        - name: day
+          in: path
+          description: day
+          required: true
+          type: string
+          format: date
+        - name: officeId
+          in: path
+          description: officeId
+          required: true
+          type: string
+        - name: patientId
+          in: path
+          description: patientId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/Appointment'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false
+definitions:
+  Appointment:
+    type: object
+    properties:
+      estimateWaitingMinutes:
+        type: integer
+        format: int32
+      estimatedInMinutes:
+        type: integer
+        format: int32
+      patientId:
+        type: string
+      place:
+        type: integer
+        format: int32
+      time:
+        type: string
+    title: Appointment
+    description: an appointment
+  AppointmentBaseNotifications:
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: 'appId when app, telefonnumber when sms, beeperId when beeper'
+      type:
+        type: string
+        enum:
+          - app
+          - sms
+          - beeper
+    title: AppointmentBaseNotifications
+  AppointmentChange:
+    type: object
+    properties:
+      notifications:
+        type: array
+        items:
+          type: string
+    title: AppointmentChange
+    description: change an appointment
+  AppointmentCreator:
+    type: object
+    properties:
+      estimatedInMinutes:
+        type: integer
+        format: int32
+      notifications:
+        type: array
+        items:
+          $ref: '#/definitions/AppointmentBaseNotifications'
+      patientId:
+        type: string
+      time:
+        type: string
+    title: AppointmentCreator
+    description: an appointment
+  Office:
+    type: object
+    properties:
+      id:
+        type: string
+    title: Office
+    description: medical office
