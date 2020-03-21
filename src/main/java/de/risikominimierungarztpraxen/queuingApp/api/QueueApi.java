@@ -29,7 +29,7 @@ public interface QueueApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = Appointment.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, method = RequestMethod.DELETE)
-    ResponseEntity<Appointment> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
+    ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
 
     @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdGet", notes = "", response = Appointment.class, tags = {"queue",})
     @ApiResponses(value = {
@@ -47,7 +47,7 @@ public interface QueueApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success")})
     @RequestMapping(value = "/queue/{officeId}/{day}", consumes = {"application/json"}, method = RequestMethod.POST)
-    ResponseEntity<Void> queueOfficeIdDayPost(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentBase body);
+    ResponseEntity<Appointment> queueOfficeIdDayPost(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentBase body);
 
     @ApiOperation(value = "", nickname = "queueOfficeIdDayPut", notes = "replace the whole queue", tags = {"queue",})
     @ApiResponses(value = {

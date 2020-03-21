@@ -1,6 +1,5 @@
 package de.risikominimierungarztpraxen.queuingApp.api;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.risikominimierungarztpraxen.queuingApp.model.Appointment;
 import de.risikominimierungarztpraxen.queuingApp.model.AppointmentBase;
 import de.risikominimierungarztpraxen.queuingApp.model.AppointmentChange;
+import de.risikominimierungarztpraxen.queuingApp.service.QueueService;
 import io.swagger.annotations.ApiParam;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
@@ -31,67 +31,68 @@ public class QueueApiController implements QueueApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+    private final QueueService queueService;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public QueueApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public QueueApiController(ObjectMapper objectMapper, HttpServletRequest request, QueueService queueService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.queueService = queueService;
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
+    public ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(
+            @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
+        queueService.deleteAppointment(officeId, patientId, day);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdGet(
+            @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<>(objectMapper.readValue("\"\"", Appointment.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return new ResponseEntity<>(queueService.getAppointment(officeId, patientId, day), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdGet(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
+    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdPut(
+            @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
+            @ApiParam(value = "") @Valid @RequestBody AppointmentChange body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<>(objectMapper.readValue("\"\"", Appointment.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return new ResponseEntity<>(queueService.updateAppointment(officeId, day, patientId, body), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
-    public ResponseEntity<Appointment> queueOfficeIdDayPatientIdPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "") @Valid @RequestBody AppointmentChange body) {
+    public ResponseEntity<Appointment> queueOfficeIdDayPost(
+            @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
+            @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
+            @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentBase body) {
         String accept = request.getHeader("Accept");
+
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<>(objectMapper.readValue("\"\"", Appointment.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            return new ResponseEntity<>(queueService.createAppointMent(officeId, day, body), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    @Override
-    public ResponseEntity<Void> queueOfficeIdDayPost(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentBase body) {
-        String accept = request.getHeader("Accept");
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public ResponseEntity<Void> queueOfficeIdDayPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody List<AppointmentBase> body) {
-        String accept = request.getHeader("Accept");
+        queueService.replaceQueue(officeId, day, body);
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
