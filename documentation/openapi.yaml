@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: QueueService
+  description: Service for patient queue management
+  contact:
+    name: TODO
+tags:
+  - name: office
+    description: manage medical offices
+  - name: queue
+    description: managing the queue
+servers:
+  - url: /api
+paths:
+  /office:
+    post:
+      tags: [office]
+      requestBody:
+        description: new medical office
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Office'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Office'
+  /office/{officeId}:
+    delete:
+      tags: [office]
+      parameters: 
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':  
+          description: success
+    
+  /queue/{officeId}:
+    post:
+      tags: [queue]
+      parameters:
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: the new patient
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentBase'
+      responses:
+        '200':
+          description: success
+    put:
+      tags: [queue]
+      description: replace the whole queue
+      parameters: 
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: the new patient
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AppointmentBase'
+      responses:
+        '200':
+          description: success
+  /queue/{officeId}/{patientId}:
+    get:
+      tags: [queue]
+      parameters: 
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: patientId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+    put:
+      tags: [queue]
+      parameters: 
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: patientId
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentChange'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+    delete:
+      tags: [queue]
+      parameters: 
+        - in: path
+          name: officeId
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: patientId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+components:
+  schemas:
+    Office:
+      description: medical office
+      type: object
+      properties:
+        id:
+          type: string
+    Appointment:
+      allOf:
+        - $ref: '#/components/schemas/AppointmentBase'
+        - type: object
+          properties:
+            place:
+              type: integer
+            estimate:
+              type: string
+              format: datetime
+    AppointmentBase:
+      description: an appointment
+      type: object
+      properties:
+        time: 
+          type: string
+          format: datetime
+        urgency:
+          type: string
+          enum: ['urgent', 'default']
+        patientId:
+          type: string
+        notifications:
+          type: array
+          items:
+            type: string
+    AppointmentChange:
+      description: change an appointment
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            type: string
