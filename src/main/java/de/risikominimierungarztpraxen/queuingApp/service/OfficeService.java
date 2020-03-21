@@ -18,10 +18,11 @@ public class OfficeService {
     }
 
     public Office createOffice(Office office) {
+        this.offices.add(office);
         return office;
     }
 
     public Optional<Office> findOffice(String officeId) {
-        return null;
+        return this.offices.stream().filter(office -> office.getId().equals(officeId)).findFirst();
     }
 }
