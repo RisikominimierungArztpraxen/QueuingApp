@@ -37,7 +37,7 @@ public class OfficeApiController implements OfficeApi {
     public ResponseEntity<Office> officePost(@ApiParam(value = "new medical office") @Valid @RequestBody Office body) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            return new ResponseEntity<>(officeService.createOffice(body), HttpStatus.NOT_IMPLEMENTED);
+            return new ResponseEntity<>(officeService.createOffice(body), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
