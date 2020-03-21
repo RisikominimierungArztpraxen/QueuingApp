@@ -34,7 +34,7 @@ public class QueueApiController implements QueueApi {
     @Override
     public ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
-            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
         queueService.deleteAppointment(officeId, patientId, day);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -43,7 +43,7 @@ public class QueueApiController implements QueueApi {
     @Override
     public ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdGet(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
-            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
@@ -56,7 +56,7 @@ public class QueueApiController implements QueueApi {
     @Override
     public ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdPut(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
-            @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId,
+            @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
             @ApiParam(value = "") @Valid @RequestBody ApiAppointmentChange body) {
         String accept = request.getHeader("Accept");
