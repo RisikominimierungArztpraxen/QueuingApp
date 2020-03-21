@@ -5,8 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.threeten.bp.LocalDate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.risikominimierungarztpraxen.queuingApp.model.Appointment;
-import de.risikominimierungarztpraxen.queuingApp.model.AppointmentBase;
 import de.risikominimierungarztpraxen.queuingApp.model.AppointmentChange;
+import de.risikominimierungarztpraxen.queuingApp.model.AppointmentCreator;
 import de.risikominimierungarztpraxen.queuingApp.service.QueueService;
 import io.swagger.annotations.ApiParam;
 
@@ -26,16 +22,11 @@ import io.swagger.annotations.ApiParam;
 @Controller
 public class QueueApiController implements QueueApi {
 
-    private static final Logger log = LoggerFactory.getLogger(QueueApiController.class);
-
-    private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
     private final QueueService queueService;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public QueueApiController(ObjectMapper objectMapper, HttpServletRequest request, QueueService queueService) {
-        this.objectMapper = objectMapper;
+    public QueueApiController(HttpServletRequest request, QueueService queueService) {
         this.request = request;
         this.queueService = queueService;
     }
@@ -80,7 +71,7 @@ public class QueueApiController implements QueueApi {
     public ResponseEntity<Appointment> queueOfficeIdDayPost(
             @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
-            @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentBase body) {
+            @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentCreator body) {
         String accept = request.getHeader("Accept");
 
         if (accept != null && accept.contains("application/json")) {
@@ -91,7 +82,10 @@ public class QueueApiController implements QueueApi {
     }
 
     @Override
-    public ResponseEntity<Void> queueOfficeIdDayPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody List<AppointmentBase> body) {
+    public ResponseEntity<Void> queueOfficeIdDayPut(
+            @ApiParam(value = "", required = true) @PathVariable("officeId") String officeId,
+            @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
+            @ApiParam(value = "the new patient") @Valid @RequestBody List<AppointmentCreator> body) {
         queueService.replaceQueue(officeId, day, body);
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
