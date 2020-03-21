@@ -29,19 +29,19 @@ public interface QueueApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = ApiAppointment.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, method = RequestMethod.DELETE)
-    ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
+    ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
 
     @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdGet", notes = "", response = ApiAppointment.class, tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = ApiAppointment.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdGet(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
+    ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdGet(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day);
 
     @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdPut", notes = "", response = ApiAppointment.class, tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = ApiAppointment.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
-    ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") Integer patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "") @Valid @RequestBody ApiAppointmentChange body);
+    ResponseEntity<ApiAppointment> queueOfficeIdDayPatientIdPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day, @ApiParam(value = "") @Valid @RequestBody ApiAppointmentChange body);
 
     @ApiOperation(value = "", nickname = "queueOfficeIdDayPost", notes = "", tags = {"queue",})
     @ApiResponses(value = {
