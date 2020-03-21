@@ -191,9 +191,8 @@ components:
           properties:
             place:
               type: integer
-            estimate:
-              type: string
-              format: datetime
+            estimateWaitingMinutes:
+              type: integer
     AppointmentBase:
       description: an appointment
       type: object
@@ -201,15 +200,22 @@ components:
         time: 
           type: string
           format: datetime
-        urgency:
-          type: string
-          enum: ['urgent', 'default']
         patientId:
           type: string
         notifications:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              type: 
+                type: string
+                enum: [app, sms, beeper]
+              identifier: 
+                description: appId when app, telefonnumber when sms, beeperId when beeper
+                type: string
+        estimatedInMinutes:
+          type: integer
+          default: 15
     AppointmentChange:
       description: change an appointment
       type: object
