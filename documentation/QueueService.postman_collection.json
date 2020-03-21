@@ -1,0 +1,1624 @@
+{
+	"info": {
+		"_postman_id": "0c3b064b-8b56-4a53-a788-2b23780f9d14",
+		"name": "QueueService",
+		"description": "Service for patient queue management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "office",
+			"item": [
+				{
+					"name": "officePost",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{officeId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/office",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"office"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/office",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"id\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/office",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/office",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/office",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/office",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "officeOfficeIdDelete",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/office/:officeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"office",
+								":officeId"
+							],
+							"variable": [
+								{
+									"key": "officeId",
+									"value": "{{officeId}}",
+									"description": "officeId"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/office/:officeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office",
+										":officeId"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/office/:officeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office",
+										":officeId"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/office/:officeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office",
+										":officeId"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "No Content",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/office/:officeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"office",
+										":officeId"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "queue/{office Id}/{day}",
+			"item": [
+				{
+					"name": "{patient Id}",
+					"item": [
+						{
+							"name": "queueOfficeIdDayPatientIdGet",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day",
+										":patientId"
+									],
+									"variable": [
+										{
+											"key": "officeId",
+											"value": "{{officeId}}",
+											"description": "officeId"
+										},
+										{
+											"key": "day",
+											"value": "{{day}}",
+											"description": "day"
+										},
+										{
+											"key": "patientId",
+											"value": "{{patientId}}",
+											"description": "patientId"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"estimateWaitingMinutes\": \"<integer>\",\n \"estimatedInMinutes\": \"<integer>\",\n \"patientId\": \"<string>\",\n \"place\": \"<integer>\",\n \"time\": \"<string>\"\n}"
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "queueOfficeIdDayPatientIdPut",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day",
+										":patientId"
+									],
+									"variable": [
+										{
+											"key": "officeId",
+											"value": "{{officeId}}",
+											"description": "officeId"
+										},
+										{
+											"key": "day",
+											"value": "{{day}}",
+											"description": "day"
+										},
+										{
+											"key": "patientId",
+											"value": "{{patientId}}",
+											"description": "patientId"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"estimateWaitingMinutes\": \"<integer>\",\n \"estimatedInMinutes\": \"<integer>\",\n \"patientId\": \"<string>\",\n \"place\": \"<integer>\",\n \"time\": \"<string>\"\n}"
+								},
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Created",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "queueOfficeIdDayPatientIdDelete",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day",
+										":patientId"
+									],
+									"variable": [
+										{
+											"key": "officeId",
+											"value": "{{officeId}}",
+											"description": "officeId"
+										},
+										{
+											"key": "day",
+											"value": "{{day}}",
+											"description": "day"
+										},
+										{
+											"key": "patientId",
+											"value": "{{patientId}}",
+											"description": "patientId"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"estimateWaitingMinutes\": \"<integer>\",\n \"estimatedInMinutes\": \"<integer>\",\n \"patientId\": \"<string>\",\n \"place\": \"<integer>\",\n \"time\": \"<string>\"\n}"
+								},
+								{
+									"name": "No Content",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/queue/:officeId/:day/:patientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"queue",
+												":officeId",
+												":day",
+												":patientId"
+											],
+											"variable": [
+												{
+													"key": "officeId"
+												},
+												{
+													"key": "day"
+												},
+												{
+													"key": "patientId"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "queueOfficeIdDayPost",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"estimatedInMinutes\": \"20\",\n    \"notifications\": [\n        {\n            \"identifier\": \"555123123\",\n            \"type\": \"sms\"\n        },\n        {\n            \"identifier\": \"appId\",\n            \"type\": \"app\"\n        }\n    ],\n    \"patientId\": \"{{patientId}}\",\n    \"time\": \"15:30\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/queue/:officeId/:day",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"queue",
+								":officeId",
+								":day"
+							],
+							"variable": [
+								{
+									"key": "officeId",
+									"value": "{{officeId}}",
+									"description": "officeId"
+								},
+								{
+									"key": "day",
+									"value": "{{day}}",
+									"description": "day"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"estimatedInMinutes\": \"<integer>\",\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ],\n    \"patientId\": \"<string>\",\n    \"time\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"estimatedInMinutes\": \"<integer>\",\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ],\n    \"patientId\": \"<string>\",\n    \"time\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"estimatedInMinutes\": \"<integer>\",\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ],\n    \"patientId\": \"<string>\",\n    \"time\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"estimatedInMinutes\": \"<integer>\",\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ],\n    \"patientId\": \"<string>\",\n    \"time\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"estimatedInMinutes\": \"<integer>\",\n    \"notifications\": [\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        },\n        {\n            \"identifier\": \"<string>\",\n            \"type\": \"<string>\"\n        }\n    ],\n    \"patientId\": \"<string>\",\n    \"time\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "queueOfficeIdDayPut",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n\t    \"estimatedInMinutes\": \"20\",\n\t    \"notifications\": [\n\t        {\n\t            \"identifier\": \"555123123\",\n\t            \"type\": \"sms\"\n\t        },\n\t        {\n\t            \"identifier\": \"appId\",\n\t            \"type\": \"app\"\n\t        }\n\t    ],\n\t    \"patientId\": \"{{patientId}}\",\n\t    \"time\": \"15:30\"\n\t},\n    {\n\t    \"estimatedInMinutes\": \"25\",\n\t    \"notifications\": [\n\t        {\n\t            \"identifier\": \"555456456\",\n\t            \"type\": \"sms\"\n\t        }\n\t    ],\n\t    \"patientId\": \"patient42\",\n\t    \"time\": \"16:30\"\n\t},\n    {\n\t    \"estimatedInMinutes\": \"5\",\n\t    \"notifications\": [\n\t        {\n\t            \"identifier\": \"555456456\",\n\t            \"type\": \"sms\"\n\t        }\n\t    ],\n\t    \"patientId\": \"patient9001\",\n\t    \"time\": \"16:30\"\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/queue/:officeId/:day",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"queue",
+								":officeId",
+								":day"
+							],
+							"variable": [
+								{
+									"key": "officeId",
+									"value": "{{officeId}}",
+									"description": "officeId"
+								},
+								{
+									"key": "day",
+									"value": "{{day}}",
+									"description": "day"
+								}
+							]
+						},
+						"description": "replace the whole queue"
+					},
+					"response": [
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    },\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    },\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Created",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    },\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    },\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    },\n    {\n        \"estimatedInMinutes\": \"<integer>\",\n        \"notifications\": [\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            },\n            {\n                \"identifier\": \"<string>\",\n                \"type\": \"<string>\"\n            }\n        ],\n        \"patientId\": \"<string>\",\n        \"time\": \"<string>\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/queue/:officeId/:day",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"queue",
+										":officeId",
+										":day"
+									],
+									"variable": [
+										{
+											"key": "officeId"
+										},
+										{
+											"key": "day"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8e099cce-4bb5-4259-8c1a-fcbc4ea724e8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "749ab823-7f48-45b6-b407-15be2e20cdeb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1cb1f29d-47ec-4bfd-80b3-365efb292e28",
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"id": "5a5073fd-0ed2-468d-a7f8-782570c1b7dd",
+			"key": "officeId",
+			"value": "DrCorona",
+			"type": "string"
+		},
+		{
+			"id": "c5bb5fcd-0fff-4b4f-ae8a-bd543e443e5c",
+			"key": "patientId",
+			"value": "patient0",
+			"type": "string"
+		},
+		{
+			"id": "6a4f9abb-e688-420c-aaf0-cfcef3cf1e7b",
+			"key": "day",
+			"value": "2020-03-22",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

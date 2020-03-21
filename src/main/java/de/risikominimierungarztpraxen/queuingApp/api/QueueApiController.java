@@ -87,7 +87,7 @@ public class QueueApiController implements QueueApi {
             @ApiParam(value = "", required = true) @PathVariable("day") LocalDate day,
             @ApiParam(value = "the new patient") @Valid @RequestBody List<ApiAppointmentCreator> body) {
         queueService.replaceQueue(officeId, day, body);
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
