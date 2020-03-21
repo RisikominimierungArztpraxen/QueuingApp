@@ -14,6 +14,7 @@ public class OfficeService {
     private final List<Office> offices = new ArrayList<>();
 
     public void deleteOffice(String officeId) {
+        this.offices.removeIf(office -> office.getId().equals(officeId));
     }
 
     public Office createOffice(Office office) {
