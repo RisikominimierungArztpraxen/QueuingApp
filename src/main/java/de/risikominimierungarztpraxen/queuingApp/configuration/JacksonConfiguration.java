@@ -1,4 +1,4 @@
-package io.swagger.configuration;
+package de.risikominimierungarztpraxen.queuingApp.configuration;
 
 import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

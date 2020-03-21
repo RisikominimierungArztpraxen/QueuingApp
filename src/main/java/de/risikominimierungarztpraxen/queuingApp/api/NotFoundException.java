@@ -1,10 +1,10 @@
-package io.swagger.api;
+package de.risikominimierungarztpraxen.queuingApp.api;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
-public class ApiException extends Exception{
+public class NotFoundException extends ApiException {
     private int code;
-    public ApiException (int code, String msg) {
-        super(msg);
+    public NotFoundException (int code, String msg) {
+        super(code, msg);
         this.code = code;
     }
 

@@ -1,4 +1,4 @@
-package io.swagger.api;
+package de.risikominimierungarztpraxen.queuingApp.api;
 
 public class ApiResponseMessage {
     public static final int ERROR = 1;
