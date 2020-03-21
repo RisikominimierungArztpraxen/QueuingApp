@@ -44,4 +44,12 @@ public class AppointmentEntity {
     public void setEstimatedInMinutes(Integer estimatedInMinutes) {
         this.estimatedInMinutes = estimatedInMinutes;
     }
+
+    public DoctorsOffice getDoctorsOffice() {
+        return doctorsOffice;
+    }
+
+    public void setDoctorsOffice(DoctorsOffice doctorsOffice) {
+        this.doctorsOffice = doctorsOffice;
+    }
 }

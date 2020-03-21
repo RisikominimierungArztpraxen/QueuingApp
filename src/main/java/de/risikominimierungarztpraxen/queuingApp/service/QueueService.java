@@ -1,5 +1,7 @@
 package de.risikominimierungarztpraxen.queuingApp.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,25 +9,29 @@ import java.util.Optional;
 
 import de.risikominimierungarztpraxen.queuingApp.persistence.entities.AppointmentEntity;
 import de.risikominimierungarztpraxen.queuingApp.persistence.repository.AppointmentRepository;
+import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.threeten.bp.LocalDate;
+
 
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointment;
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentChange;
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentCreator;
+import org.threeten.bp.ZonedDateTime;
 
 @Service
 public class QueueService {
 
     private final OfficeService officeService;
     private final AppointmentRepository appointmentRepository;
+    private final DoctorsOfficeRepository officeRepository;
     private final Map<String, Map<LocalDate, List<Appointment>>> queues = new HashMap<>();
 
     @Autowired
-    public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository) {
+    public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository, DoctorsOfficeRepository officeRepository) {
         this.officeService = officeService;
         this.appointmentRepository = appointmentRepository;
+        this.officeRepository = officeRepository;
     }
 
     public void deleteAppointment(String officeId, String patientId, LocalDate day) {
@@ -51,7 +57,7 @@ public class QueueService {
 
     public ApiAppointment createAppointMent(String officeId, LocalDate day, ApiAppointmentCreator appointmentCreator) {
         checkOfficeId(officeId);
-        AppointmentEntity appointmentEntity = mapToDBEntity(appointmentCreator);
+        AppointmentEntity appointmentEntity = mapToDBEntity(officeId, day, appointmentCreator);
         appointmentRepository.save(appointmentEntity);
         return null;
     }
@@ -80,8 +86,17 @@ public class QueueService {
         }
     }
 
-    private AppointmentEntity mapToDBEntity(ApiAppointmentCreator appointment) {
+    private AppointmentEntity mapToDBEntity(String officeId, LocalDate day, ApiAppointmentCreator appointmentCreator) {
         AppointmentEntity appointmentEntity = new AppointmentEntity();
+        appointmentEntity.setDoctorsOffice(officeRepository.findByOfficeId(officeId));
+        appointmentEntity.setEstimatedInMinutes(appointmentCreator.getEstimatedInMinutes());
+        appointmentEntity.setPatientId(appointmentCreator.getPatientId());
+        String appointmentTimeString = appointmentCreator.getTime();
+        String[] appointmentTimeparts = appointmentTimeString.split(":");
+        int hours = Integer.parseInt(appointmentTimeparts[0]);
+        int minutes = Integer.parseInt(appointmentTimeparts[1]);
+        LocalDateTime time = LocalDateTime.of(day.getYear(), day.getMonth(), day.getDayOfMonth(), hours, minutes);
+        appointmentEntity.setTime(time);
         return appointmentEntity;
     }
 }

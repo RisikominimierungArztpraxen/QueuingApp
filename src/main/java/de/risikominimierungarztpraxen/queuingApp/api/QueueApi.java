@@ -5,6 +5,7 @@
  */
 package de.risikominimierungarztpraxen.queuingApp.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.threeten.bp.LocalDate;
+
 
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointment;
 import de.risikominimierungarztpraxen.queuingApp.model.ApiAppointmentChange;
