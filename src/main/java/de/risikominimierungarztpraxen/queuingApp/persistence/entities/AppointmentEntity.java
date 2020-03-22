@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "Appointment")
@@ -16,6 +17,9 @@ public class AppointmentEntity {
     @ManyToOne
     @JoinColumn(name = "officeId")
     private DoctorsOffice doctorsOffice;
+
+    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    private Set<NotificationReceiver> notificationReceivers;
 
     private LocalDateTime time;
     private String patientId;
@@ -51,5 +55,10 @@ public class AppointmentEntity {
 
     public void setDoctorsOffice(DoctorsOffice doctorsOffice) {
         this.doctorsOffice = doctorsOffice;
+    }
+
+    public void setNotificationReceivers(Set<NotificationReceiver> receivers) {
+        notificationReceivers = receivers;
+        notificationReceivers.forEach(r -> r.setAppointment(this));
     }
 }

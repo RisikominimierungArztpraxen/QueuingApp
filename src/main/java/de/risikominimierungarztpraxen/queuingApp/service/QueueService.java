@@ -2,11 +2,15 @@ package de.risikominimierungarztpraxen.queuingApp.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import de.risikominimierungarztpraxen.queuingApp.model.ApiNotification;
+import de.risikominimierungarztpraxen.queuingApp.persistence.entities.NotificationReceiver;
+import de.risikominimierungarztpraxen.queuingApp.persistence.entities.ReceiverType;
+import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class QueueService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(QueueService.class);
     private final OfficeService officeService;
     private final AppointmentRepository appointmentRepository;
     private final DoctorsOfficeRepository officeRepository;
@@ -68,7 +73,9 @@ public class QueueService {
     }
 
     private void refreshQueueEstimationInDb(Queue queue) {
-
+        // Do we really need this at the moment?
+        // At the moment DB is only for persistence on server crashes.
+        // Might be necessary later when using clustering for bette scalability.
     }
 
     public ApiAppointment updateAppointment(String officeId, LocalDate day, String patientId, ApiAppointmentChange appointmentChange) {
@@ -126,6 +133,30 @@ public class QueueService {
         int minutes = Integer.parseInt(appointmentTimeparts[1]);
         LocalDateTime time = LocalDateTime.of(day.getYear(), day.getMonth(), day.getDayOfMonth(), hours, minutes);
         appointmentEntity.setTime(time);
+        List<ApiNotification> apiNotifications = appointmentCreator.getNotifications();
+        Set<NotificationReceiver> receivers = apiNotifications.stream().map(n -> mapToDBEntity(n)).collect(Collectors.toSet());
+        appointmentEntity.setNotificationReceivers(receivers);
         return appointmentEntity;
+    }
+
+    private NotificationReceiver mapToDBEntity(ApiNotification notification) {
+        NotificationReceiver notificationReceiver = new NotificationReceiver();
+        notificationReceiver.setAddress(notification.getIdentifier());
+        notificationReceiver.setReceiverType(getReceiverType(notification.getType()));
+        return notificationReceiver;
+    }
+
+    private ReceiverType getReceiverType(ApiNotification.TypeEnum type) {
+        switch (type) {
+            case APP:
+                return ReceiverType.APP;
+            case SMS:
+                return ReceiverType.SMS;
+            case BEEPER:
+                return ReceiverType.BEEPER;
+            default:
+                LOG.warn("Unkown Receiver type!");
+                return null;
+        }
     }
 }

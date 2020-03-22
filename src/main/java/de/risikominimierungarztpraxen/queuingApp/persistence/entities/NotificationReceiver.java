@@ -33,4 +33,8 @@ public class NotificationReceiver {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public void setAppointment(AppointmentEntity appointment) {
+        this.appointment = appointment;
+    }
 }
