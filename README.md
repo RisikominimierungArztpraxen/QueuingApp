@@ -5,6 +5,7 @@ QueuingApp receives REST calls of the medical offices und pushes notifications t
 
 The app is built on spring boot and runs on port 8080.
 When accessing the app with the browser you see the REST interface. It has further documentation on how to use what and why.
+You can use the start and stop scripts to start/stop the application.
 
 ## developement
 
