@@ -6,7 +6,10 @@ import de.risikominimierungarztpraxen.queuingApp.model.Office;
 import de.risikominimierungarztpraxen.queuingApp.persistence.entities.DoctorsOffice;
 import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class OfficeService {
 
     private final DoctorsOfficeRepository doctorsOfficeRepository;
@@ -16,7 +19,7 @@ public class OfficeService {
     }
 
     public void deleteOffice(String officeId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        doctorsOfficeRepository.deleteByOfficeId(officeId);
     }
 
     public Office createOffice(Office office) {

@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface DoctorsOfficeRepository extends CrudRepository<DoctorsOffice, Integer> {
 
     DoctorsOffice findByOfficeId(String officeId);
+
+    void deleteByOfficeId(String officeId);
 }

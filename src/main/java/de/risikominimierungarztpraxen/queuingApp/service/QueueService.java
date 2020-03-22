@@ -17,7 +17,10 @@ import de.risikominimierungarztpraxen.queuingApp.persistence.entities.Appointmen
 import de.risikominimierungarztpraxen.queuingApp.persistence.repository.AppointmentRepository;
 import de.risikominimierungarztpraxen.queuingApp.persistence.repository.DoctorsOfficeRepository;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class QueueService {
 
     private final OfficeService officeService;
