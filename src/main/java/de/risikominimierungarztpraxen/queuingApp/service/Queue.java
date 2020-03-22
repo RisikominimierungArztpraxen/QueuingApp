@@ -36,8 +36,8 @@ public class Queue {
         for (int i = 0; i < this.appointments.size(); i++) {
             Appointment appointment = this.appointments.get(i);
             if (appointment.getPatientId().equals(patientId)) {
+                this.removeMinutesFromAllApointments(appointment.getEstimatedInMinutes(), i + 1);
                 this.appointments.remove(i);
-                this.removeMinutesFromAllApointments(appointment.getEstimatedInMinutes(), i);
                 return;
             }
         }
@@ -98,8 +98,8 @@ public class Queue {
     public synchronized void removeMinutesFromAllApointments(int minutes, int fromIndex) {
         Appointment next = appointments.get(0);
         if (fromIndex == 0) {
-            if (next.getEstimatedWaitingTime() >= minutes) {
-                next.setEstimatedWaitingTime(next.getEstimatedWaitingTime() - minutes);
+            if (next.getEstimatedInMinutes() >= minutes) {
+                next.setEstimatedInMinutes(next.getEstimatedInMinutes() - minutes);
             } else {
                 next.setEstimatedInMinutes(0);
             }
