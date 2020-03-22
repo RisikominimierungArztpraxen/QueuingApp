@@ -16,7 +16,7 @@ public class AppointmentDao {
     @JoinColumn(name = "officeId")
     private OfficeDao officeDao;
 
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appointment", cascade = CascadeType.ALL)
     private Set<NotificationDao> notificationDaos;
 
     private LocalDateTime time;
@@ -58,5 +58,9 @@ public class AppointmentDao {
     public void setNotificationDaos(Set<NotificationDao> receivers) {
         notificationDaos = receivers;
         notificationDaos.forEach(r -> r.setAppointment(this));
+    }
+
+    public Set<NotificationDao> getNotificationDaos() {
+        return notificationDaos;
     }
 }

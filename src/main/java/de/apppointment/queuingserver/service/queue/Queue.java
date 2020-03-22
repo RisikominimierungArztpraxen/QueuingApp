@@ -53,6 +53,10 @@ public class Queue {
         }
     }
 
+    public int size() {
+        return appointments.size();
+    }
+
     /**
      *
      * @return all appointments
