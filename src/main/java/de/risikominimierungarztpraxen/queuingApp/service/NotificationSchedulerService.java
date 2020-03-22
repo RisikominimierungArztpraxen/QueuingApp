@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationSchedulerService {
 
-    private QueueService queueService;
     private static final Logger LOG = LoggerFactory.getLogger(NotificationSchedulerService.class);
+    private static final int MINUTE = 60 * 1000;
+    private QueueService queueService;
 
     @Autowired
     public NotificationSchedulerService(QueueService queueService) {
@@ -20,7 +21,7 @@ public class NotificationSchedulerService {
     /**
      * Update queues every minute
      */
-    @Scheduled(cron = "0 * * ? * * *")
+    @Scheduled(fixedRate = MINUTE)
     public void removeOneMinuteFromAllAppointments() {
         LOG.info("running scheduler");
         this.queueService.removeOneMinuteFromAllAppointments();

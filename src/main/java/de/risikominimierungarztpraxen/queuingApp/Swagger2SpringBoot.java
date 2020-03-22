@@ -6,10 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableScheduling
 @ComponentScan(basePackages = {"de.risikominimierungarztpraxen.queuingApp", "de.risikominimierungarztpraxen.queuingApp.api", "de.risikominimierungarztpraxen.queuingApp.configuration"})
 public class Swagger2SpringBoot implements CommandLineRunner {
 
