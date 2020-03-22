@@ -17,41 +17,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-import de.apppointment.queuingserver.rest.model.AppointmentDto;
 import de.apppointment.queuingserver.rest.model.AppointmentChangeDto;
 import de.apppointment.queuingserver.rest.model.AppointmentCreatorDto;
+import de.apppointment.queuingserver.rest.model.AppointmentDto;
 import io.swagger.annotations.*;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-21T14:46:54.089Z[GMT]")
 @Api(value = "queue", description = "the queue API")
 public interface QueueApi {
 
-    @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdDelete", notes = "", response = AppointmentDto.class, tags = {"queue",})
+    @ApiOperation(value = "", nickname = "remove one appointment", notes = "removes an appointment from the queue. Use this when the appointment is done (not when the patient is now with the doctor).", response = AppointmentDto.class, tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = AppointmentDto.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, method = RequestMethod.DELETE)
     ResponseEntity<Void> queueOfficeIdDayPatientIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day);
 
-    @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdGet", notes = "", response = AppointmentDto.class, tags = {"queue",})
+    @ApiOperation(value = "", nickname = "Get an appointment by patient id (or appointment id)", notes = "Return the appointment, to get an estimate of the current waiting time", response = AppointmentDto.class, tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = AppointmentDto.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<AppointmentDto> queueOfficeIdDayPatientIdGet(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day);
 
-    @ApiOperation(value = "", nickname = "queueOfficeIdDayPatientIdPut", notes = "", response = AppointmentDto.class, tags = {"queue",})
+    @ApiOperation(value = "", nickname = "Change an appointment.", notes = "Will only change the appointment notifications, for now.", response = AppointmentDto.class, tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success", response = AppointmentDto.class)})
     @RequestMapping(value = "/queue/{officeId}/{day}/{patientId}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
     ResponseEntity<AppointmentDto> queueOfficeIdDayPatientIdPut(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("patientId") String patientId, @ApiParam(value = "", required = true) @PathVariable("day") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day, @ApiParam(value = "") @Valid @RequestBody AppointmentChangeDto body);
 
-    @ApiOperation(value = "", nickname = "queueOfficeIdDayPost", notes = "", tags = {"queue",})
+    @ApiOperation(value = "", nickname = "Add a new appointment.", notes = "Creates a new appointment, beware that the office id must be valid.", tags = {"queue",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "success")})
+            @ApiResponse(code = 200, message = "appointment created")})
     @RequestMapping(value = "/queue/{officeId}/{day}", consumes = {"application/json"}, method = RequestMethod.POST)
     ResponseEntity<AppointmentDto> queueOfficeIdDayPost(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId, @ApiParam(value = "", required = true) @PathVariable("day") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day, @ApiParam(value = "the new patient") @Valid @RequestBody AppointmentCreatorDto body);
 
-    @ApiOperation(value = "", nickname = "queueOfficeIdDayPut", notes = "replace the whole queue", tags = {"queue",})
+    @ApiOperation(value = "", nickname = "replace the queue", notes = "replace the whole queue. Will automatically create waiting time. The order of the array is the order of the queue, so the appointment at index 0 is the one currently talking with the doctor", tags = {"queue",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success")})
     @RequestMapping(value = "/queue/{officeId}/{day}", consumes = {"application/json"}, method = RequestMethod.PUT)

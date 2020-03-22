@@ -42,7 +42,7 @@ public class AppointmentCreatorDto extends AppointmentBaseDto {
      * Get notifications
      * @return notifications
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "the notifications the queue will attempt to send for this appointment")
     @Valid
     public List<NotificationDto> getNotifications() {
         return notifications;

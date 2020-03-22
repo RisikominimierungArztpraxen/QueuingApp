@@ -20,15 +20,15 @@ import io.swagger.annotations.*;
 @Api(value = "office", description = "the office API")
 public interface OfficeApi {
 
-    @ApiOperation(value = "", nickname = "officeOfficeIdDelete", notes = "", tags = {"office",})
+    @ApiOperation(value = "", nickname = "remove an office from the list of offices", notes = "Will always return 200, even if the office was not there in the beginning", tags = {"office",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "success")})
+            @ApiResponse(code = 200, message = "office deleted")})
     @RequestMapping(value = "/office/{officeId}", method = RequestMethod.DELETE)
     ResponseEntity<Void> officeOfficeIdDelete(@ApiParam(value = "", required = true) @PathVariable("officeId") String officeId);
 
-    @ApiOperation(value = "", nickname = "officePost", notes = "", response = OfficeDto.class, tags = {"office",})
+    @ApiOperation(value = "", nickname = "add a new office", notes = "Essential to add appointments to an office. Only possible if there is not another office with the same officeId", response = OfficeDto.class, tags = {"office",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "success", response = OfficeDto.class)})
+            @ApiResponse(code = 200, message = "office created", response = OfficeDto.class)})
     @RequestMapping(value = "/office", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.POST)
     ResponseEntity<OfficeDto> officePost(@ApiParam(value = "new medical office") @Valid @RequestBody OfficeDto body);
 
