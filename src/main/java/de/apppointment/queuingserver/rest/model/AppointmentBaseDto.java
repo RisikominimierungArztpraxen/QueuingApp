@@ -42,7 +42,7 @@ public class AppointmentBaseDto {
      * Get time
      * @return time
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "the scheduled time for the appointment. Right now, it is not taken into account, which means the appointment will always be appended at the end of the queue.")
 
     public String getTime() {
         return time;
@@ -61,7 +61,7 @@ public class AppointmentBaseDto {
      * Get patientId
      * @return patientId
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "The identifier for the appointment. You may use an id for each patient, but it will get buggy if the same patientId is used on the same day for the same office.")
 
     public String getPatientId() {
         return patientId;
@@ -80,7 +80,7 @@ public class AppointmentBaseDto {
      * Get estimatedInMinutes
      * @return estimatedInMinutes
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "The time this appointment will estimately take. Will automatically be reduced if the appointment is on index 0 in the queue, meaning the patient is currently talking with the doctor")
 
     public Integer getEstimatedInMinutes() {
         return estimatedInMinutes;
