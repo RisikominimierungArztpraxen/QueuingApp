@@ -39,6 +39,7 @@ public class QueueService {
         this.appointmentRepository = appointmentRepository;
         this.officeRepository = officeRepository;
         // TODO: reload queues from DB to restore state after restart. When 'real' development starts this can be removed again as we will always have a DB-backed queue in a cluster-scenario!
+        appointmentRepository.findAllByOrderByTime().spliterator().forEachRemaining(appointmentDao -> restoreToQueue(appointmentDao));
     }
 
     public void deleteAppointment(String officeId, String patientId, LocalDate day) {
@@ -147,6 +148,13 @@ public class QueueService {
         return notificationDao;
     }
 
+    private NotificationDto mapToDto(NotificationDao notification) {
+        NotificationDto notificationDto = new NotificationDto();
+        notificationDto.setIdentifier(notification.getAddress());
+        notificationDto.setType(getReceiverType(notification.getReceiverType()));
+        return notificationDto;
+    }
+
     private ReceiverType getReceiverType(NotificationDto.TypeEnum type) {
         switch (type) {
             case APP:
@@ -159,5 +167,29 @@ public class QueueService {
                 LOG.warn("Unkown Receiver type!");
                 return null;
         }
+    }
+
+    private NotificationDto.TypeEnum getReceiverType(ReceiverType type) {
+        switch (type) {
+            case APP:
+                return NotificationDto.TypeEnum.APP;
+            case SMS:
+                return NotificationDto.TypeEnum.SMS;
+            case BEEPER:
+                return NotificationDto.TypeEnum.BEEPER;
+            default:
+                LOG.warn("Unkown Receiver type!");
+                return null;
+        }
+    }
+
+    private void restoreToQueue(AppointmentDao appointmentDao) {
+        LocalDateTime appointmentTime = appointmentDao.getTime();
+        LocalDate day = LocalDate.from(appointmentDao.getTime());
+        Queue queue = findOrCreateQueue(appointmentDao.getOfficeDao().getOfficeId(), day);
+        String time = appointmentTime.getHour() + ":" + appointmentTime.getMinute();
+        List<NotificationDto> notifications = appointmentDao.getNotificationDaos().stream().map(notificationDao -> mapToDto(notificationDao)).collect(Collectors.toList());
+        AppointmentCreatorDto appointment = new AppointmentCreatorDto(time, appointmentDao.getPatientId(), appointmentDao.getEstimatedInMinutes(), notifications);
+        queue.addAppointment(appointment);
     }
 }
