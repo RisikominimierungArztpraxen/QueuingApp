@@ -39,7 +39,7 @@ public class AppointmentDto extends AppointmentBaseDto {
      * Get place
      * @return place
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "The place in the queue. The place 0 means, the patient is currently talking to the doctor")
 
     public Integer getPlace() {
         return place;
@@ -58,7 +58,7 @@ public class AppointmentDto extends AppointmentBaseDto {
      * Get estimateWaitingMinutes
      * @return estimateWaitingMinutes
     **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "The minutes it will estimatedly take until the patient can talk to the doctor")
 
     public Integer getEstimateWaitingMinutes() {
         return estimateWaitingMinutes;
