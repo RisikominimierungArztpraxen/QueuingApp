@@ -11,6 +11,7 @@ import de.apppointment.queuingserver.persistence.entities.ReceiverType;
 import de.apppointment.queuingserver.persistence.repository.AppointmentRepository;
 import de.apppointment.queuingserver.persistence.repository.DoctorsOfficeRepository;
 import de.apppointment.queuingserver.rest.model.NotificationDto;
+import de.apppointment.queuingserver.service.notification.NotificationService;
 import de.apppointment.queuingserver.service.office.OfficeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +32,16 @@ public class QueueService {
     private final OfficeService officeService;
     private final AppointmentRepository appointmentRepository;
     private final DoctorsOfficeRepository officeRepository;
+    private final NotificationService notificationService;
     private final Map<String, Map<LocalDate, Queue>> queues = new HashMap<>();
 
+
     @Autowired
-    public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository, DoctorsOfficeRepository officeRepository) {
+    public QueueService(OfficeService officeService, AppointmentRepository appointmentRepository, DoctorsOfficeRepository officeRepository, NotificationService notificationService) {
         this.officeService = officeService;
         this.appointmentRepository = appointmentRepository;
         this.officeRepository = officeRepository;
+        this.notificationService = notificationService;
         // TODO: reload queues from DB to restore state after restart. When 'real' development starts this can be removed again as we will always have a DB-backed queue in a cluster-scenario!
         appointmentRepository.findAllByOrderByTime().spliterator().forEachRemaining(appointmentDao -> restoreToQueue(appointmentDao));
     }
@@ -112,7 +116,7 @@ public class QueueService {
         }
         Queue queue = officeQueues.get(day);
         if (queue == null) {
-            queue = new Queue();
+            queue = new Queue(notificationService);
             officeQueues.put(day, queue);
         }
         return queue;

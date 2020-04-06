@@ -9,8 +9,8 @@ import de.apppointment.queuingserver.rest.model.AppointmentDto;
 import de.apppointment.queuingserver.rest.model.AppointmentChangeDto;
 import de.apppointment.queuingserver.rest.model.AppointmentCreatorDto;
 import de.apppointment.queuingserver.rest.model.NotificationDto;
+import de.apppointment.queuingserver.service.notification.NotificationException;
 import de.apppointment.queuingserver.service.notification.NotificationService;
-import de.apppointment.queuingserver.service.notification.NotificationServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,11 @@ public class Queue {
     private final List<Appointment> appointments = new ArrayList<>();
 
     // TODO Must be refactored for better testability:
-    private final NotificationService notificationService = new NotificationServiceImpl();
+    private final NotificationService notificationService;
+
+    public Queue(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
     /**
      * Adds one new appointment.
@@ -137,7 +141,12 @@ public class Queue {
         if (shouldSendNow(appointment.getEstimatedWaitingTime())) {
             NotificationDto notification = getFirstAvailableNotification(appointment.getNotifications());
             if (notification != null) {
-                notificationService.sendNotification(notification, "Testmessage");
+                try {
+                    notificationService.sendNotification(notification, "Testmessage");
+                } catch (NotificationException e) {
+                    // TODO: What should we do here? Inform somebody?
+                    LOG.error("Failed to send notification! ", e);
+                }
             }
         }
     }
