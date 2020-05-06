@@ -58,7 +58,7 @@ public class NotificationServiceImplTest {
         // act
         try {
             service2Test.sendNotification(notification, "Testing text");
-            fail("THis should have triggered an exception as the number is invalid!");
+            fail("This should have triggered an exception as the number is invalid!");
         } catch (NotificationException e) {
             // Do nothing that should be the case!
         }
@@ -89,7 +89,7 @@ public class NotificationServiceImplTest {
         // act
         try {
             service2Test.sendNotification(notification, "Testing text");
-            fail("THis should have triggered an exception as sending to app is not implemennted yet!");
+            fail("This should have triggered an exception as sending to app is not implemennted yet!");
         } catch (NotificationException e) {
             // Do nothing that should be the case!
         }

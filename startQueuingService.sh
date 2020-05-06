@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Global variables
-SERVER_DIR=/home/ubuntu
+SERVER_DIR=/srv/apppointment
 JAVA_BIN=/usr/bin/java
 
 am_i_root() {
@@ -24,7 +24,7 @@ stop_if_necessary() {
 start_server() {
         cd $SERVER_DIR
 
-        $JAVA_BIN -jar queue-service.jar &
+        $JAVA_BIN -jar -Dspring.config.location=/srv/apppointment/application.properties -Dlogging.config=/srv/apppointment/logback.xml queue-service.jar &
         PID=$!
         echo $PID > server.pid
         echo Please check the queue-service.log for finish of startup! e.g. using tail -f queue-service.log
