@@ -23,8 +23,6 @@ public class Queue {
 
     private static final Logger LOG = LoggerFactory.getLogger(Queue.class);
     private final List<Appointment> appointments = new ArrayList<>();
-
-    // TODO Must be refactored for better testability:
     private final NotificationService notificationService;
 
     public Queue(NotificationService notificationService) {
